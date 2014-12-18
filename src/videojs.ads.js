@@ -440,7 +440,7 @@ var
           'content-playback': {
             enter: function() {
               player.trigger({
-                type: 'content-playback',
+                type: 'contentplayback',
                 reason: this.reason
               });
               // Make sure that the cancelPlayTimeout is cleared

@@ -51,7 +51,7 @@ module('Ad Framework', {
     // in a playback state due to aderror, adscanceled, and adend
     // conditions.
     contentPlaybackFired = 0;
-    player.on('content-playback', function(event){
+    player.on('contentplayback', function(event){
       contentPlaybackFired++;
       contentPlaybackReason = event.reason;
     });
@@ -410,7 +410,7 @@ module('Ad Framework - Video Snapshot', {
     // in a playback state due to aderror, adscanceled, and adend
     // conditions.
     contentPlaybackFired = 0;
-    player.on('content-playback', function(event){
+    player.on('contentplayback', function(event){
       contentPlaybackFired++;
       contentPlaybackReason = event.reason;
     });
