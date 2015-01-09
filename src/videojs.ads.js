@@ -351,7 +351,6 @@ var
           'content-set': {
             events: {
               'adscanceled': function() {
-                this.reason = 'adscanceled';
                 this.state = 'content-playback';
               },
               'adsready': function() {
@@ -364,7 +363,6 @@ var
                 removeNativePoster(player);
               },
               'adserror': function() {
-                this.reason = 'adserror';
                 this.state = 'content-playback';
               }
             }
@@ -376,7 +374,6 @@ var
                 cancelContentPlay(player);
               },
               'adserror': function() {
-                this.reason = 'adserror';
                 this.state = 'content-playback';
               }
             }
@@ -405,12 +402,10 @@ var
                 player.el().className += ' vjs-ad-playing';
               },
               'adtimeout': function() {
-                this.reason = 'adtimeout';
                 this.state = 'content-playback';
                 player.play();
               },
               'adserror': function() {
-                this.reason = 'adserror';
                 this.state = 'content-playback';
               }
             }
@@ -431,18 +426,15 @@ var
                 cancelContentPlay(player);
               },
               'adscanceled': function() {
-                this.reason = 'adscanceled';
                 this.state = 'content-playback';
               },
               'adsready': function() {
                 this.state = 'preroll?';
               },
               'adtimeout': function() {
-                this.reason = 'adtimeout';
                 this.state = 'content-playback';
               },
               'adserror': function() {
-                this.reason = 'adserror';
                 this.state = 'content-playback';
               }
             }
@@ -463,7 +455,6 @@ var
             },
             events: {
               'adend': function() {
-                this.reason = 'adend';
                 this.state = 'content-playback';
               }
             }
@@ -472,7 +463,7 @@ var
             enter: function() {
               player.trigger({
                 type: 'contentplayback',
-                reason: this.reason
+                triggerevent: fsm.triggerevent
               });
               // Make sure that the cancelPlayTimeout is cleared
               if (player.ads.cancelPlayTimeout) {
@@ -518,11 +509,11 @@ var
 
         // execute leave/enter callbacks if present
         if (state !== player.ads.state) {
+          fsm.triggerevent = event.type;
           (fsm[state].leave || noop).apply(player.ads);
           (fsm[player.ads.state].enter || noop).apply(player.ads);
-
           if (settings.debug) {
-            videojs.log('ads', state + ' -> ' + player.ads.state);
+            videojs.log('ads', fsm.triggerevent + ' triggered: ' + state + ' -> ' + player.ads.state);
           }
         }
 

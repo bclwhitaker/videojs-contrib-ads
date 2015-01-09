@@ -54,7 +54,7 @@ module('Ad Framework - Video Snapshot', {
     contentPlaybackFired = 0;
     player.on('contentplayback', function(event){
       contentPlaybackFired++;
-      contentPlaybackReason = event.reason;
+      contentPlaybackReason = event.triggerevent;
     });
   },
 

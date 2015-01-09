@@ -53,7 +53,7 @@ module('Ad Framework', {
     contentPlaybackFired = 0;
     player.on('contentplayback', function(event){
       contentPlaybackFired++;
-      contentPlaybackReason = event.reason;
+      contentPlaybackReason = event.triggerevent;
     });
   },
   teardown: function() {
@@ -157,8 +157,8 @@ test('moves to content-playback if the preroll times out', function() {
   equal(player.ads.state,
         'content-playback',
         'the state is content-playback');
-  equal(contentPlaybackFired, 1, 'A content-playback event should have triggered');
-  equal(contentPlaybackReason, 'adtimeout', 'The reason for content-playback should have been adtimeout');
+  equal(contentPlaybackFired, 1, 'A contentplayback event should have triggered');
+  equal(contentPlaybackReason, 'adtimeout', 'The triggerevent for content-playback should have been adtimeout');
 });
 
 test('waits for adsready if play is received first', function() {
@@ -174,7 +174,7 @@ test('moves to content-playback if a plugin does not finish initializing', funct
         'content-playback',
         'the state is content-playback');
   equal(contentPlaybackFired, 1, 'A content-playback event should have triggered');
-  equal(contentPlaybackReason, 'adtimeout', 'The reason for content-playback should have been adtimeout');
+  equal(contentPlaybackReason, 'adtimeout', 'The triggerevent for content-playback should have been adtimeout');
 });
 
 test('calls start immediately on play when ads are ready', function() {
@@ -204,8 +204,8 @@ test('removes the ad-mode class when a preroll finishes', function() {
 
   ok(player.el().className.indexOf('vjs-ad-playing') < 0,
      'the ad class should not be in "' + player.el().className + '"');
-  equal(contentPlaybackFired, 1, 'A content-playback event should have triggered');
-  equal(contentPlaybackReason, 'adend', 'The reason for content-playback should have been adend');
+  equal(contentPlaybackFired, 1, 'A contentplayback event should have triggered');
+  equal(contentPlaybackReason, 'adend', 'The triggerevent for content-playback should have been adend');
 });
 
 test('adds a class while waiting for an ad plugin to load', function() {
