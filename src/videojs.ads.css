@@ -14,3 +14,12 @@
 .vjs-ad-playing.vjs-ad-loading .vjs-loading-spinner {
   display: block;
 }
+
+/* Poster handling */
+.video-js.vjs-has-started .vjs-poster {
+  display: block;
+}
+
+.video-js.vjs-playing .vjs-poster {
+  display: none;
+}
