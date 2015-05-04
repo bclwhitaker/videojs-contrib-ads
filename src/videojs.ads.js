@@ -151,6 +151,7 @@ var
       i,
       suppressedTracks = [],
       snapshot = {
+        ended: player.ended(),
         src: player.currentSrc(),
         currentTime: player.currentTime(),
         type: player.currentType()
@@ -215,7 +216,7 @@ var
       resume = function() {
         player.currentTime(snapshot.currentTime);
         //If this wasn't a postroll resume
-        if (!player.ended()) {
+        if (!snapshot.ended) {
           player.play();
         }
       },
@@ -281,7 +282,7 @@ var
       player.load();
       // and then resume from the snapshots time once the original src has loaded
       player.one('loadedmetadata', tryToResume);
-    } else if (!player.ended()) {
+    } else if (!snapshot.ended) {
       // if we didn't change the src, just restore the tracks
       restoreTracks();
 
